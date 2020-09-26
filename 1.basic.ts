@@ -1,74 +1,46 @@
-#!/usr/bin/env ts-node
-let isDone: boolean = false
-let createdByBoolean: boolean = Boolean(0)
+// #!/usr/bin/env ts-node
 
-let decLiteral: number = 6
-let notANumber: number = NaN
-let infinityNumber: number = Infinity
-
-let myName: string = 'Tom'
-
-let unusable: void = undefined
-
-let anyThing: any = 'll'
-// 在任意值上访问任何属性，调用任何方法都可以
-
-
-// undefined 和 null 是所有类型的子类型
-
-/**
- * 类型推论
- */
-let myFavoriteNumber = 'seven'
-// 相当于
-let myFavoriteNumber2: string = 'seven'
-
-let myFavoriteNumber3: string | number;
-myFavoriteNumber3 = 'seven';
-myFavoriteNumber3 = 7;
-
+// 1.接口, 规定一个对象必须有哪些属性
 interface Person {
-  readonly id: number;
-  name: string;
-  age?: number;
-  [propName: string]: any;
+  firstName: string
+  lastName: string
 }
 
-let fibonacci: number[] = [1, 1, 2, 3, 5];
-let fibonacci2: Array<number> = [1, 1, 2, 3, 5]
+function greeter(person: Person) {
+  return 'Hello, ' + person.firstName + ' ' + person.lastName
+}
 
-// 可选参数必须接在必需参数后面
-function buildName(firstName: string, lastName?: string) {
-  if (lastName) {
-      return firstName + ' ' + lastName;
-  } else {
-      return firstName;
+let user = { firstName: 'Jane', lastName: 'User' } // 多了可以，少了不行
+// let user = { firstName: 'Jane', lastName: 'User', k: 'k' }
+// let user = { firstName: 'Jane' }
+console.log(greeter(user))
+
+// 2. 类
+class Student {
+  fullName: string
+  constructor(public firstName, public middleInitial, public lastName) {
+    // public 的作用是 给class公用属性
+    this.fullName = firstName + ' ' + middleInitial + ' ' + lastName
   }
 }
 
-// TypeScript 会将添加了默认值的参数识别为可选参数,此时就不受「可选参数必须接在必需参数后面」的限制了
-function buildName2(firstName: string = 'Tom', lastName: string) {
-  return firstName + ' ' + lastName;
+interface Person2 {
+  firstName: string
+  lastName: string
 }
 
-// 重载
-function reverse(x: number): number;
-function reverse(x: string): string;
-function reverse(x: number | string): number | string {
-    if (typeof x === 'number') {
-        return Number(x.toString().split('').reverse().join(''));
-    } else if (typeof x === 'string') {
-        return x.split('').reverse().join('');
-    }
+function greeter2(person: Person2) {
+  return 'Hello, ' + person.firstName + ' ' + person.lastName
 }
 
-// 断言
-// 将一个联合类型的变量指定为一个更加具体的类型,需要在还不知道是什么类型的时候使用该类型的方法
-function getLength(something: string | number): number {
-  if ((<string>something).length) {
-      return (<string>something).length;
-  } else {
-      return something.toString().length;
-  }
+let user2 = new Student('Jane', 'M.', 'User')
+console.log(user2)
+console.log(greeter2(user2))
+
+// 3.枚举
+enum Direction {
+  Up = 'UP',
+  Down = 'DOWN',
+  Left = 'LEFT',
+  Right = 'RIGHT'
 }
-console.log(anyThing.length)
