@@ -18,3 +18,19 @@ function add2(a: any, b: any): any {
 console.log(add2(1, 2))
 // console.log(add2('1', '2'))
 // console.log(add2(true, true))
+
+// 数组
+let list: number[] = [1, 2, 3]
+let list2: Array<number> = [1, 2, 3] // 范型写法
+
+function sort(a: number[]): number[] {
+  return [1]
+}
+
+console.log(sort([8]))
+
+// 元祖
+
+let x: [string, number]
+
+// x = [1, 1]
